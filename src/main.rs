@@ -1,32 +1,3 @@
-/*
-    Initialize 2D array with 81 empty grids (nx = 9, ny = 9)
-    Fill in some empty grid with the known values
-    Make an original copy of the array
-    Start from top left grid (nx = 0, ny = 0), check if grid is empty
-    if (grid is empty) {
-        assign the empty grid with values (i)
-        if (no numbers exists in same rows & same columns same as (i) & 3x3 square (i) is currently in)
-            fill in the number
-        if (numbers exists in same rows | same columns same as (i) | 3x3 square (i) is currently in)
-            discard (i) and repick other values (i++)
-    }
-    else {
-        while (nx < 9) {
-            Proceed to next row grid(nx++, ny)
-            if (nx equals 9) {
-                reset nx = 1
-                proceed to next column grid(nx,ny++)
-                if (ny equals 9) {
-                    print solution
-                }
-            }
-        }
-    }
-*/
-
-use std::io::{Error, ErrorKind};
-
-
 type Board = [[Option<u8>; 9]; 9];
 
 #[derive(Clone, Debug)]
@@ -34,6 +5,7 @@ struct Position {
     row: usize,
     col: usize,
 }
+
 impl Position {
     pub fn new(col: usize, row: usize) -> Position {
         Position {
@@ -56,35 +28,25 @@ impl Sudoku {
     }
 
     pub fn solve(&mut self, pos: Position) -> Result<Board, u8> {
-        println!("{:?}", self.board);
 
         if let Some(_cell) = self.board[pos.row][pos.col] {
 
             if pos.col + 1 < self.board.len() {
-                println!("increment column");
-                return self.solve(Position::new(pos.col + 1, pos.row));
+
+                self.solve(Position::new(pos.col + 1, pos.row))
 
             } else if pos.row + 1 < self.board.len() {
-                println!("increment row");
-                return self.solve(Position::new(0, pos.row + 1));
+
+                self.solve(Position::new(0, pos.row + 1))
 
             } else {
-                println!("board is done");
-                return Ok(self.board)
-            }
 
-            return Err(10);
+                Ok(self.board)
+                
+            }
 
         } else {
             for guess in 1..10 {
-
-                println!("");
-                println!(
-                    "{:?} {:?} {:?}",
-                    guess,
-                    check_position(&self.board, &pos, guess),
-                    pos.clone()
-                );
 
                 if check_position(&self.board, &pos, guess) {
                     self.board[pos.row][pos.col] = Some(guess);
