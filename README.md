@@ -2,6 +2,12 @@
 
 A sudoku solver using the [Backtracking algorithm](https://en.wikipedia.org/wiki/Sudoku_solving_algorithms#Backtracking).
 
+
+### Plans:
+ - Use CSV file as input
+ - Show every step of the algorithm?
+
+
 ```
 Initialize 2D array with 81 empty grids (nx = 9, ny = 9)
 Fill in some empty grid with the known values

@@ -1,6 +1,6 @@
 [package]
+authors = ["Jacob Wunder <jacob@jacobwunder.com>"]
 name = "sudoku"
 version = "0.1.0"
-authors = ["Jacob Wunder <jacob@jacobwunder.com>"]
-
 [dependencies]
+csv = "*"
