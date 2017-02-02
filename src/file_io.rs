@@ -27,27 +27,17 @@ pub fn board_from_file(path: &Path) -> Result<Board, &error::Error> {
     for (i, row) in board_reader.records().enumerate() {
         let row = row.unwrap();
 
-        println!("{:?}", row);
-
         let row_vec: Vec<Option<u8>> = row.iter().map(|value| {
-            println!("{:?}", value);
             match value.as_bytes()[0] {
                 b'.' => None,
-                b'0' => Some(0),
-                b'1' => Some(1),
-                b'2' => Some(2),
-                b'3' => Some(3),
-                b'4' => Some(4),
-                b'5' => Some(5),
-                b'6' => Some(6),
-                b'7' => Some(7),
-                b'8' => Some(8),
-                b'9' => Some(9),
+                b'0' => Some(0), b'1' => Some(1),
+                b'2' => Some(2), b'3' => Some(3),
+                b'4' => Some(4), b'5' => Some(5),
+                b'6' => Some(6), b'7' => Some(7),
+                b'8' => Some(8), b'9' => Some(9),
                 _ => None
             }
         }).collect();
-
-        println!("{:?}", row_vec);
 
         for (j, value) in row_vec.iter().take(9).enumerate() {
             board[i][j] = match value {
@@ -61,6 +51,6 @@ pub fn board_from_file(path: &Path) -> Result<Board, &error::Error> {
     Ok(board)
 }
 
-pub fn board_to_file(path: &Path) -> Result<(), &error::Error> {
+pub fn board_to_file<'a>(path: &Path, board: &Board) -> Result<(), &'a error::Error> {
     Ok(())
 }
